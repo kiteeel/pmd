@@ -4,6 +4,8 @@
 
 package net.sourceforge.pmd.lang.java.metrics.impl.internal;
 
+import net.sourceforge.pmd.lang.java.ast.ASTFinallyStatement;
+import net.sourceforge.pmd.lang.java.ast.ASTLambdaExpression;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import net.sourceforge.pmd.lang.java.ast.ASTAssertStatement;
@@ -107,6 +109,13 @@ public class CycloVisitor extends JavaParserVisitorAdapter {
         return super.visit(node, data);
     }
 
+    @Override
+    public Object visit(ASTLambdaExpression node, Object data) {
+        ((MutableInt) data).increment();
+        return super.visit(node, data);
+    }
+
+
 
     @Override
     public Object visit(ASTWhileStatement node, Object data) {
@@ -121,6 +130,9 @@ public class CycloVisitor extends JavaParserVisitorAdapter {
     @Override
     public Object visit(ASTIfStatement node, Object data) {
         ((MutableInt) data).increment();
+        if (node.hasElse()) {
+            ((MutableInt) data).increment();
+        }
         if (considerBooleanPaths) {
             ((MutableInt) data).add(CycloMetric.booleanExpressionComplexity(node.getCondition()));
         }
@@ -165,6 +177,13 @@ public class CycloVisitor extends JavaParserVisitorAdapter {
         return super.visit(node, data);
     }
 
+
+
+    @Override
+    public Object visit(ASTFinallyStatement node, Object data) {
+        ((MutableInt) data).increment();
+        return super.visit(node, data);
+    }
 
     @Override
     public Object visit(ASTAssertStatement node, Object data) {

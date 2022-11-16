@@ -1185,7 +1185,7 @@
         <module>pmd-java8</module>
         <module>pmd-javascript</module>
         <module>pmd-doc</module>
-        <module>pmd-lang-test</module>
+<!--        <module>pmd-lang-test</module>-->
         <module>pmd-scala</module> <!-- deprecated -->
         <module>pmd-scala-modules/pmd-scala-common</module>
         <module>pmd-scala-modules/pmd-scala_2.13</module>
